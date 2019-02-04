@@ -63,7 +63,21 @@ const pintereachReducer = (state = initialState, action) => {
       };
     case REGISTER_REQUEST:
       return {
-        ...state
+        ...state,
+        isRegistering: true
+      };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        isRegistering: false,
+        isRegistered: true
+      };
+    case REGISTER_FAILURE:
+      return {
+        ...state,
+        isRegistered: false,
+        isRegistering: false,
+        error: action.payload
       };
     default:
       return state;

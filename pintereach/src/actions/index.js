@@ -31,8 +31,18 @@ export const postAuthReg = newUser => dispatch => {
   dispatch({ type: REGISTER_REQUEST });
   axios
     .post("https://pintereach.herokuapp.com/auth/register", newUser)
-    .then(res => dispatch({ type: REGISTER_SUCCESS, payload: res.data }))
-    .catch(err => dispatch({ type: REGISTER_FAILURE, payload: err }));
+    .then(res => {
+      dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+      console.log(res);
+      if (res.data.token) {
+        console.log("help", res.data.token);
+        localStorage.setItem("token", res.data.token);
+      }
+    })
+    .catch(err => {
+      dispatch({ type: REGISTER_FAILURE, payload: err });
+      console.log(err.response);
+    });
 };
 
 export const postAuthLogin = creds => dispatch => {

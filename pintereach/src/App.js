@@ -5,6 +5,7 @@ import Authenticate from "./components/auth/auth";
 import Logout from "./components/logout/logout";
 import { connect } from "react-redux";
 import { pinteReach } from "./actions";
+import Register from "./components/register/register";
 
 class App extends Component {
   componentDidMount() {
@@ -14,9 +15,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
+        <Register />
         <Logout />
       </div>
     );

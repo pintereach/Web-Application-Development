@@ -29,6 +29,7 @@ class Login extends Component {
     console.log(localStorage);
     return (
       <Form>
+        <Label>Log In Page</Label>
         <FormGroup>
           <Label for="loginUsername">Username</Label>
           <Input
