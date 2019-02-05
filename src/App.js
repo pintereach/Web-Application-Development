@@ -8,6 +8,7 @@ import Home from "./components/pintereach/home";
 import Login from "./components/login/login";
 import Register from "./components/register/register";
 
+//
 class App extends Component {
   componentDidMount() {
     // this.props.pinteReach();
