@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Authenticate from "./components/auth/auth";
-
+import { Route } from "react-router-dom";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { pinteReach } from "./actions";
 import { stat } from "fs";
+import Home from "./components/pintereach/home";
+import Login from "./components/login/login";
+import Register from "./components/register/register";
 
 class App extends Component {
   componentDidMount() {
@@ -15,7 +19,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {!this.props.isLoggedIn ? <Authenticate /> : <h1>PinteReach</h1>}
+        <Route exact path="/" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/user" component={Home} />
+        <Route />
+        {/* {!this.props.isLoggedIn ? <Authenticate /> : <Home />} */}
       </div>
     );
   }
@@ -30,7 +38,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {}
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    {}
+  )(App)
+);

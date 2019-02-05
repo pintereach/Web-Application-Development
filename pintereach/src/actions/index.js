@@ -56,6 +56,8 @@ export const postAuthLogin = creds => dispatch => {
     .then(res => {
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       console.log(res);
+      if (res.data.message) {
+      }
     })
     .catch(err => dispatch({ type: LOGIN_FAILURE, payload: err }));
 };

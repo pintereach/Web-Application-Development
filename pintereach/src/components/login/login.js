@@ -30,24 +30,41 @@ class Login extends Component {
     });
   };
 
-  componentDidMount() {}
+  toHome = () => {
+    if (this.props.isLoggedIn) {
+      this.props.history.push("/user");
+      console.log("to Home");
+    } else {
+      console.log("toHome failed");
+    }
+    console.log("works");
+  };
 
   render() {
     console.log(localStorage);
     return (
-      <LoginForm
-        handleChanges={this.handleChanges}
-        handleSubmit={this.handleSubmit}
-        username={this.state.username}
-        password={this.state.password}
-      />
+      <div>
+        {!this.props.isLoggedIn ? (
+          <LoginForm
+            handleChanges={this.handleChanges}
+            handleSubmit={this.handleSubmit}
+            username={this.state.username}
+            password={this.state.password}
+            toHome={this.toHome}
+          />
+        ) : (
+          this.props.history.push("/user")
+        )}
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => {
   console.log(state);
-  return {};
+  return {
+    isLoggedIn: state.isLoggedIn
+  };
 };
 
 export default connect(
