@@ -1,27 +1,46 @@
-import React, { Component } from "react";
-import Login from "../login/login";
+// import React, { Component } from "react";
+// import Login from "../login/login";
+// import Register from "../register/register";
+// import { connect } from "react-redux";
+// import { Route } from "react-router-dom";
 
-const Authenticate = App =>
-  class extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        loggedIn: false
-      };
-    }
+// class Authenticate extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       registered: false
+//     };
+//   }
 
-    componentDidMount() {
-      if (!localStorage.getItem("creds")) {
-        this.setState({ loggedIn: false });
-      } else {
-        this.setState({ loggedIn: true });
-      }
-    }
-    render() {
-      console.log(this.state.loggedIn);
-      if (this.state.loggedIn) return <App />;
-      return <Login />;
-    }
-  };
+//   handleLogin = () => {
+//     this.setState({ registered: false });
+//     window.location.reload();
+//   };
 
-export default Authenticate;
+//   handleRegister = () => {
+//     this.setState({ registered: true });
+//     window.location.reload();
+//     localStorage.removeItem("token");
+//   };
+
+//   render() {
+//     return (
+//       <div>
+//         {!this.props.isRegistered
+//           ? this.props.history.push("/")
+//           : this.props.history.push("/login")}
+//       </div>
+//     );
+//   }
+// }
+
+// const mapStateToProps = state => {
+//   return {
+//     isRegistered: state.isRegistered
+//   };
+// };
+
+// export default connect(
+//   mapStateToProps,
+//   {}
+// )(Authenticate);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { postAuthLogin } from "../../actions";
 import { connect } from "react-redux";
+import LoginForm from "./loginForm";
 
 class Login extends Component {
   constructor(props) {
@@ -16,46 +16,58 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  logIn = e => {
+  handleSubmit = e => {
     e.preventDefault();
-    const creds = (this.state.username, this.state.password);
-    localStorage.setItem("creds", creds);
-    window.location.reload();
+    const creds = {
+      username: this.state.username,
+      password: this.state.password
+    };
+    console.log(creds);
+    this.props.postAuthLogin(creds);
+    this.setState({
+      username: "",
+      password: ""
+    });
   };
 
-  componentDidMount() {}
+  toHome = () => {
+    if (this.props.isLoggedIn) {
+      this.props.history.push("/user");
+      console.log("to Home");
+    } else {
+      console.log("toHome failed");
+    }
+    console.log("works");
+  };
 
   render() {
     console.log(localStorage);
     return (
-      <Form>
-        <Label>Log In Page</Label>
-        <FormGroup>
-          <Label for="loginUsername">Username</Label>
-          <Input
-            onChange={this.handleChanges}
-            type="username"
-            name="username"
-            value={this.state.username}
-            placeholder="Username"
+      <div>
+        {!this.props.isLoggedIn ? (
+          <LoginForm
+            handleChanges={this.handleChanges}
+            handleSubmit={this.handleSubmit}
+            username={this.state.username}
+            password={this.state.password}
+            toHome={this.toHome}
           />
-        </FormGroup>
-        <FormGroup>
-          <Label for="loginPassword">Password</Label>
-          <Input
-            onChange={this.handleChanges}
-            type="password"
-            name="password"
-            value={this.state.password}
-            placeholder="Password"
-          />
-        </FormGroup>
-        <Button className="btn" onClick={this.logIn}>
-          Submit
-        </Button>
-      </Form>
+        ) : (
+          this.props.history.push("/user")
+        )}
+      </div>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    isLoggedIn: state.isLoggedIn
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { postAuthLogin }
+)(Login);
