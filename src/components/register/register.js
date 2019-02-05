@@ -18,7 +18,6 @@ class Register extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // const { username, password } = this.state;
     const newUser = {
       username: this.state.username,
       display_name: "",
