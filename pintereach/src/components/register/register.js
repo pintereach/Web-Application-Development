@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { postAuthReg } from "../../actions";
 import RegisterForm from "./registerform";
-import { Link } from "react-router-dom";
 
 class Register extends Component {
   constructor(props) {
@@ -57,7 +56,6 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {};
 };
 

@@ -23,7 +23,7 @@ export const REGISTER_FAILURE = "REGISTER_FAILURE";
 export const pinteReach = () => dispatch => {
   dispatch({ type: FETCHING_ARTICLES });
   axios
-    .get("https://192.168.0.7:3333/")
+    .get("https://192.168.0.7:3000/")
     .then(res =>
       dispatch({ type: FETCHING_ARTICLES_SUCCESS, payload: res.data })
     )
