@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { postAuthLogin } from "../../actions";
 import { connect } from "react-redux";
+import LoginForm from "./loginForm";
 
 class Login extends Component {
   constructor(props) {
@@ -16,11 +16,18 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  logIn = e => {
+  handleSubmit = e => {
     e.preventDefault();
-    const creds = (this.state.username, this.state.password);
-    localStorage.setItem("creds", creds);
-    window.location.reload();
+    const creds = {
+      username: this.state.username,
+      password: this.state.password
+    };
+    console.log(creds);
+    this.props.postAuthLogin(creds);
+    this.setState({
+      username: "",
+      password: ""
+    });
   };
 
   componentDidMount() {}
@@ -28,34 +35,22 @@ class Login extends Component {
   render() {
     console.log(localStorage);
     return (
-      <Form>
-        <Label>Log In Page</Label>
-        <FormGroup>
-          <Label for="loginUsername">Username</Label>
-          <Input
-            onChange={this.handleChanges}
-            type="username"
-            name="username"
-            value={this.state.username}
-            placeholder="Username"
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="loginPassword">Password</Label>
-          <Input
-            onChange={this.handleChanges}
-            type="password"
-            name="password"
-            value={this.state.password}
-            placeholder="Password"
-          />
-        </FormGroup>
-        <Button className="btn" onClick={this.logIn}>
-          Submit
-        </Button>
-      </Form>
+      <LoginForm
+        handleChanges={this.handleChanges}
+        handleSubmit={this.handleSubmit}
+        username={this.state.username}
+        password={this.state.password}
+      />
     );
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  console.log(state);
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  { postAuthLogin }
+)(Login);

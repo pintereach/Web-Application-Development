@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Authenticate from "./components/auth/auth";
-import Logout from "./components/logout/logout";
+
 import { connect } from "react-redux";
 import { pinteReach } from "./actions";
-import Register from "./components/register/register";
+import { stat } from "fs";
 
 class App extends Component {
   componentDidMount() {
@@ -15,8 +15,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Register />
-        <Logout />
+        {!this.props.isLoggedIn ? <Authenticate /> : <h1>PinteReach</h1>}
       </div>
     );
   }
@@ -24,14 +23,14 @@ class App extends Component {
 
 const mapStateToProps = state => {
   console.log(state);
+  console.log(localStorage);
   return {
+    isLoggedIn: state.isLoggedIn,
     error: state.error
   };
 };
 
 export default connect(
   mapStateToProps,
-  {
-    pinteReach
-  }
-)(Authenticate(App));
+  {}
+)(App);
